@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница теста мультиязычности</title>
+</head>
+<style>
+    .translate_btn {
+        float:left;
+        border:1px solid black;
+        padding:30px 40px;
+        margin:20px;
+    }
+
+    .center {
+        width:60%;
+        margin:  10px 20%;
+    }
+
+    .entity_row {
+        margin:  10px;
+        padding: 20px;
+    }
+
+    .clear {
+        clear:both;    }
+
+</style>
+<body>
+
+
+{% load i18n %}
+
+<form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+    <input name="next" type="hidden" value="/tests/translate_list/">
+    <select name="language">
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% for language in languages %}
+            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                {{ language.name_local }} ({{ language.code }})
+            </option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Go">
+</form>
+
+<div class="center">
+    <div class="translate_btn">
+        <p>Русский</p>
+    </div>
+    <div class="translate_btn">
+        <p>Английский</p>
+    </div>
+    <div class="translate_btn">
+        <p>Немецкий</p>
+    </div>
+</div>
+
+<div class="center clear">
+    {% for entity in translate_entities %}
+        <div class="entity_row">
+            <h2>{{ entity.title }}</h2>
+            <p>{{ entity.body_text }}</p>
+        </div>
+    {% endfor %}
+</div>
+</body>
+</html>

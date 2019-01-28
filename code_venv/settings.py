@@ -27,16 +27,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'for_dev_tests'
 ]
 
 MIDDLEWARE = [
@@ -47,9 +49,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'code_venv.urls'
+
 
 TEMPLATES = [
     {
@@ -77,7 +81,7 @@ WSGI_APPLICATION = 'code_venv.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'lotl-db.sqlite3'),
     }
 }
 
@@ -104,15 +108,29 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'ru-RU'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
+#modeltranslation settings
+gettext = lambda s: s
+LANGUAGES = (
+    ('ru', 'Russian'),
+    ('en', 'English'),
+    ('de', 'German'),
+)
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
+
+MODELTRANSLATION_TRANSLATION_FILES = (
+    'for_dev_tests.translation',
+)
+#modeltranslation setting ends
 
 
 # Static files (CSS, JavaScript, Images)

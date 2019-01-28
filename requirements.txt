@@ -2,3 +2,4 @@ Django==2.1.5
 pip==9.0.3
 pytz==2018.7
 setuptools==39.0.1
+django-modeltranslation=0.13b1
