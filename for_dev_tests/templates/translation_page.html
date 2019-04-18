@@ -30,6 +30,8 @@
 
 
 {% load i18n %}
+{% load static %}
+{% load thumbnail %}
 
 <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
     <input name="next" type="hidden" value="/tests/translate_list/">
@@ -61,6 +63,12 @@
 <div class="center clear">
     {% for entity in translate_entities %}
         <div class="entity_row">
+            <p>Превьюшка 250 на 250 (генерится автоматом когда он первый раз видит эту раметку)</p>
+            <img src="{% thumbnail entity.test_image_field 250x250 crop %}">
+            <p>Превьюшка 650 на 250 (генерится автоматом когда он первый раз видит эту раметку)</p>
+            <img src="{% thumbnail entity.test_image_field 650x250 crop %} ">
+            <p>Оригинал</p>
+            <img src="{{ entity.test_image_field.url }} ">
             <h2>{{ entity.title }}</h2>
             <p>{{ entity.body_text }}</p>
         </div>
