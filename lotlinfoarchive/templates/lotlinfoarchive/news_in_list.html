@@ -1,0 +1,13 @@
+{% load static %}
+{% load thumbnail %}
+{% load i18n %}
+
+<div>
+    <h3>{{ news.dt_created|date:'Y-m-d' }} - {{ news.title }} - <a href="{% url 'lotlarchive.single_news' slug=news.slug %}">Читать дальше</a></h3>
+    <p> {{ news.text_short }}</p>
+    <p> Теги:
+        {% for tag in news.tags.all %}
+            <a href="">{{  tag }}</a>
+        {% endfor %}
+    </p>
+</div>

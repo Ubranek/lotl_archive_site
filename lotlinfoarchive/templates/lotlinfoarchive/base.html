@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- эти дурацие лоадинги надо дублировать на "дочерних" шаблонах потому что вот. -->
+{% load i18n %}
+{% load static %}
+
+<head>
+    <title>{% block title %} Default lotl-info-archive-title (если вы видите это, значит блок title не определен в расширяющем шаблоне {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <!-- Общее для страниц меню -->
+        <div class="menu">
+        {% for m in menu %}
+            {% if m.url != request.path %}
+                <a href="{{ m.url }}" class="{% if m.url == request.path %}active {% endif %} menu-item"> <!-- условие оставлено для примера условных от контента классов -->
+                    {{ m.title }}
+                </a>
+            {% else %}
+                <span class="menu-item">{{ m.title }}<span>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="content">
+    {% block content %}
+        <p>(если вы видите это, значит блок content не определен в расширяющем шаблоне </p>
+    {% endblock %}
+    </div>
+
+    <footer>
+        <p>Общий для страниц футер</p>
+    </footer>
+</body>
+
+</html>

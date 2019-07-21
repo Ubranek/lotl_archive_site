@@ -21,6 +21,9 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
-    path('tests/', include('for_dev_tests.urls')),
-    path('filer/', include('filer.urls'))
+    #path('tests/', include('for_dev_tests.urls')),
+    path('', include('lotlinfoarchive.urls')),
+    path('filer/', include('filer.urls')),
+    path(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
+
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

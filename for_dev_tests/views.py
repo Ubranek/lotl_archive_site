@@ -10,3 +10,4 @@ def translation_page(request):
     print(request.LANGUAGE_CODE)
     #return HttpResponse("Hello, world. You're at the polls index.")
     return render(request, template_name, context)
+

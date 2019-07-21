@@ -1,0 +1,19 @@
+{% extends 'lotlinfoarchive/base.html' %}
+
+{% block title %} Текстовые материалы {% endblock %}
+
+{% block content %}
+    <div class="news">
+        <h2>Новости</h2>
+        {%  for article in object_list  %}
+            {% if article.is_published %}
+                {% include 'lotlinfoarchive/article_in_list.html' %}
+            {% endif %}
+        {% endfor %}
+
+        {% if not object_list or object_list}length == 0 %}
+            <p>На данный момент на сайте нет опубликованных статей или текстовых материалов</p>
+        {% endif %}
+
+    </div>
+{% endblock %}

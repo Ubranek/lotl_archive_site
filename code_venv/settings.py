@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'filer',
     'mptt',
-    'for_dev_tests'
+    'taggit',
+    'taggit_autosuggest',
+    'for_dev_tests',
+    'lotlinfoarchive'
 ]
 
 MIDDLEWARE = [

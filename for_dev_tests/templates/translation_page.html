@@ -71,6 +71,10 @@
             <img src="{{ entity.test_image_field.url }} ">
             <h2>{{ entity.title }}</h2>
             <p>{{ entity.body_text }}</p>
+            <p>Теги: {{ entity.tags }}</p>
+            {% for tag in entity.tags.all %}
+                <a href="">{{  tag }}</a>
+            {% endfor %}
         </div>
     {% endfor %}
 </div>

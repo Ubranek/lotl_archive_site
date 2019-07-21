@@ -1,0 +1,37 @@
+{% extends 'lotlinfoarchive/base.html' %}
+
+{% block title %} Новости {% endblock %}
+
+{% block content %}
+    <div class="news">
+        <h2>Новости</h2>
+        {%  for news in object_list  %}
+            {% if news.is_published %}
+                {% include 'lotlinfoarchive/news_in_list.html' %}
+            {% endif %}
+        {% endfor %}
+
+        {% if not object_list or object_list|length == 0 %}
+            <p>На данный момент на сайте нет опубликованных новостей</p>
+        {% endif %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; Первая</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+                {% endif %}
+
+                <span class="current">
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Следущая</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
+    </div>
+{% endblock %}
