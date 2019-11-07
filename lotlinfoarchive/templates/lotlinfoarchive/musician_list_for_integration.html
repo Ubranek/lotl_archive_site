@@ -1,0 +1,7 @@
+<!--todo: translation not ready -->
+
+{% for musician in musicians %}
+    {% include "lotlinfoarchive/musician_in_list.html"  with musician=musician %}
+{% empty %}
+    <p>Заполнение сайта в процессе, приносим свои извинения</p>
+{% endfor %}

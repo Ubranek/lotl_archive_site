@@ -1,0 +1,27 @@
+{% load static %}
+{% load thumbnail %}
+{% load i18n %}
+<!--todo: translation not ready -->
+
+<div>
+<hr/>
+    <h2> <a href="{% url 'lotlarchive.musician' slug=musician.slug %}">{{ musician.name }}</a></h2>
+    <p> {% firstof musician.role "role.placeholder" %} {% if not musician.is_active %} <i>(Бывший участник)</i>{% endif %}</p>
+    <div class="social">
+        <a href="{{  facebook }}">FB</a> <a href="{{ instagram }}">ИН</a>
+    </div>
+
+    {% for ph in musician.musicianphoto_set.all %}
+        {% if ph.is_cover %}
+            <img src="{{ ph.photo.img.url }} " style="width:300px;">
+        {% endif %}
+    {% endfor %}
+
+    <p> Теги:
+        {% for tag in musician.associated_tags.all %}
+            <a href="{% url "lotlarchive.tags_list" tag=tag %}">{{  tag }}</a>
+        {% endfor %}
+    </p>
+
+<hr/>
+</div>

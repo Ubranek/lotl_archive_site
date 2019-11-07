@@ -1,0 +1,14 @@
+{% extends 'lotlinfoarchive/base.html' %}
+<!--todo: translation not ready -->
+
+{% block title %} О группе {% endblock %}
+
+{% block content_header %}
+     <h2>О группе</h2>
+     <p>{{ text_info|safe }}</p>
+{% endblock %}
+
+{% block content %}
+    <h2>Участники группы</h2>
+    {% include "lotlinfoarchive/musician_list_for_integration.html" with musicians=object_list %}
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render_to_response
 from django.urls import reverse
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
@@ -41,6 +41,7 @@ class MainView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['text_info'] = TextInfoBlock.objects.get_or_create(template_name=self.template_name)[0]
         context['menu'] = get_menu()
         #context['latest_articles'] = Article.objects.all()[:5]
         return context
@@ -49,15 +50,42 @@ class MainView(TemplateView):
 class NewsView(ListView):
     model = News
     paginate_by = 10
+    template_name = "lotlinfoarchive/news_list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['text_info'] = TextInfoBlock.objects.get_or_create(template_name=self.template_name)[0]
         context['menu'] = get_menu()
         return context
 
 #path('news/<slug:slug>', SingleNewsView, "lotlarchive.single_news"),
 class SingleNewsView(DetailView):
     model = News
+    template_name = "lotlinfoarchive/news_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = get_menu()
+        return context
+
+
+# path('articles/', ArticlesView, "lotlarchive.articles"),
+class ArticlesView(ListView):
+    model = Article
+    paginate_by = 10
+    template_name = "lotlinfoarchive/article_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['text_info'] = TextInfoBlock.objects.get_or_create(template_name=self.template_name)[0]
+        context['menu'] = get_menu()
+        return context
+
+
+# path('articles/<slug:slug>', SingleArticlesView, "lotlarchive.single_article"),
+class SingleArticlesView(DetailView):
+    model = Article
+    template_name = "lotlinfoarchive/article_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -70,6 +98,7 @@ class AboutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['text_info'] = TextInfoBlock.objects.get_or_create(template_name=self.template_name)[0]
         context['menu'] = get_menu()
         return context
 
@@ -79,6 +108,7 @@ class DiscographyView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['text_info'] = TextInfoBlock.objects.get_or_create(template_name=self.template_name)[0]
         context['menu'] = get_menu()
         return context
 
@@ -110,8 +140,28 @@ class SingleEventView(DetailView):
         context['menu'] = get_menu()
         return context
 
+#path('tours/<slug:slug>', TourView.as_view(), name='lotlarchive.tour'),
+class TourView(DetailView):
+    model = Tour
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        #context["events"] = Event.objects.filter(tour=self.object)
+        context['menu'] = get_menu()
+        return context
+
 #path('photos/', PhotoesView, "lotlarchive.photoes"),
 class PhotoesView(ListView):
+    model = Photo
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = get_menu()
+        return context
+
+#path('photo/<int:id>', SinglePhoto.as_view(), name="lotlarchive.single_photo"),
+class SinglePhotoView(DetailView):
     model = Photo
     paginate_by = 20
 
@@ -130,31 +180,13 @@ class VideosView(ListView):
         context['menu'] = get_menu()
         return context
 
-#path('articles/', ArticlesView, "lotlarchive.articles"),
-class ArticlesView(ListView):
-    model = Article
-    paginate_by = 10
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['menu'] = get_menu()
-        return context
-
-#path('articles/<slug:slug>', SingleArticlesView, "lotlarchive.single_article"),
-class SingleArticlesView(DetailView):
-    model = Article
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['menu'] = get_menu()
-        return context
-
 #path('musisians/', MusiciansView, "lotlarchive.musisians"),
 class MusiciansView(ListView):
     model = Musician
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['text_info'] = TextInfoBlock.objects.get_or_create(template_name=self.template_name)[0]
         context['menu'] = get_menu()
         return context
 
@@ -166,3 +198,37 @@ class SingleMusicianView(DetailView):
         context = super().get_context_data(**kwargs)
         context['menu'] = get_menu()
         return context
+
+
+def tag_search(request, tag):
+    template_name = "lotlinfoarchive/tag_search_result.html"
+
+    events = Event.objects.filter(tags__slug__in=[tag,])
+    text_list = []
+    news_list = News.objects.filter(tags__slug__in=[tag,])
+    article_list = Article.objects.filter(tags__slug__in=[tag,])
+    text_list = list(news_list) + list(article_list)
+    videos = VideoLink.objects.filter(tags__slug__in=[tag,])
+    photoes = Photo.objects.filter(tags__slug__in=[tag,])
+
+    tours = Tour.objects.filter(associated_tags__slug__in=[tag,])
+    musicians = Musician.objects.filter(associated_tags__slug__in=[tag,])
+    albums = Album.objects.filter(associated_tags__slug__in=[tag, ])
+
+    context = {}
+    context['menu'] = get_menu()
+    context["tag"] = tag
+
+    context["events"] = events
+    context["text_list"] = text_list
+    context["videos"] = videos
+    context["photoes"] = photoes
+    context["tours"] = tours
+    context["musicians"] = musicians
+    context['albums'] = albums
+
+    return render_to_response(template_name, context)
+
+
+
+

@@ -1,0 +1,39 @@
+{% extends 'lotlinfoarchive/base.html' %}
+<!--todo: translion not ready -->
+
+{% block title %} Альбом {{ album.title }} {% endblock %}
+
+    <!--todo:  впоследствии сжечь
+        поля альбома (object или album)
+        name = models.CharField(_('Наименование альбома'), max_length=255)
+        slug = models.SlugField(_('Идентификатор ссылки '), unique=True, help_text='Заполняется автоматически по заголовку. В случае неуникальности добавить в конце цифру')
+        description = models.TextField(_('Описание'),  blank=True, null=True)
+        year = models.IntegerField(_('Год выпуска'))
+        tour = models.ForeignKey(Tour, verbose_name=_('Тур в поддержку альбома'), null=True, on_delete=models.SET_NULL)
+        album_type = models.IntegerField(_('Тип альбома'), choices=album_types, default=0)
+        associated_tags = TaggableManager(verbose_name=_('Ассоциированные теги'))
+        buy_links = models.ManyToManyField(BuyLink, verbose_name=_('Ссылки на покупку альбома'))
+        tracks = models.ManyToManyField("Track", through="TrackInAlbum", verbose_name=(_("Треки в альбоме")))
+    -->
+
+{% block content_header %}<!-- пустой блок заголовка -->{% endblock %}
+
+{% block content %}
+
+    <h2>Альбом {{ album.title }}</h2>
+    <p>Год в поддержку: {{ album.year }}  {% if album.tour %}<A HREF="{% url 'lotlarchive.tour' slug=album.tour.slug %}">Тур в поддержку</A>{% endif %} </p>
+
+    <p>{{ album.description|safe }}</p>
+
+    {% if album.cover %}
+       <img src="{{ album.cover.img.url }} " style="width:300px;">
+    {% endif %}
+
+    <p> Теги:
+        {% for tag in album.associated_tags.all %}
+            <a href="{% url "lotlarchive.tags_list" tag=tag %}">{{  tag }}</a>
+        {% endfor %}
+    </p>
+
+
+{% endblock %}

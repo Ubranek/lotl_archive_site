@@ -1,0 +1,23 @@
+{% load static %}
+{% load thumbnail %}
+{% load i18n %}
+
+{#  все поля сущности event смотреть в модели или в шаблоне event_detail.html #}
+{% if event.is_published %}
+    <div>
+        <hr/>
+        <h3>{{ event.dt|date:'Y-m-d' }} - {{ event.title }} - <a href="{% url 'lotlarchive.single_event' slug=event.slug %}">Детали</a></h3>
+
+        {% if event.cover %}
+            <img src="{{ event.cover.img.url }} " style="width:300px;">
+        {% endif %}
+
+        <p> {{ event.text_short|safe }}</p>
+        <p> Теги:
+            {% for tag in event.tags.all %}
+                <a href="{% url "lotlarchive.tags_list" tag=tag.slug %}">{{  tag }}</a>
+            {% endfor %}
+        </p>
+        <hr/>
+    </div>
+{% endif %}

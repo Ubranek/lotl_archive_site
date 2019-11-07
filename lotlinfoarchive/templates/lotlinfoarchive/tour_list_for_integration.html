@@ -1,0 +1,10 @@
+<!--todo: translation not ready -->
+
+{% for tour in tours %}
+    <div>
+      {{ tour }}
+    </div>
+{% empty %}
+    <p>Заполнение сайта в процессе, приносим свои извинения</p>
+{% endfor %}
+

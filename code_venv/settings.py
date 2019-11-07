@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'mptt',
     'taggit',
     'taggit_autosuggest',
+    #'tinymce',\
+    'django_summernote',
     'for_dev_tests',
     'lotlinfoarchive'
 ]
@@ -143,6 +145,7 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 
 MODELTRANSLATION_TRANSLATION_FILES = (
     'for_dev_tests.translation',
+    'lotlinfoarchive.translation'
 )
 #modeltranslation setting ends
 

@@ -1,13 +1,12 @@
 {% extends 'lotlinfoarchive/base.html' %}
 <!--todo: translation not ready -->
 
-{% block title %} Дискография {% endblock %}
+{% block title %} Фотография {% endblock %}
 
 {% block content_header %}
-     <h2>Диcкография</h2>
      <p>{{ text_info|safe }}</p>
 {% endblock %}
 
 {% block content %}
-    {% include "lotlinfoarchive/album_list_for_integration.html" with albums=object_list %}
+    {% include "lotlinfoarchive/photoes_list_for_integration.html" with photoes=object_list %}
 {% endblock %}

@@ -1,19 +1,8 @@
-{% extends 'lotlinfoarchive/base.html' %}
+{% extends 'lotlinfoarchive/textmaterial_list.html' %}
 
-{% block title %} Текстовые материалы {% endblock %}
+{% block title %} Статьи, интервью и истории {% endblock %}
 
-{% block content %}
-    <div class="news">
-        <h2>Новости</h2>
-        {%  for article in object_list  %}
-            {% if article.is_published %}
-                {% include 'lotlinfoarchive/article_in_list.html' %}
-            {% endif %}
-        {% endfor %}
-
-        {% if not object_list or object_list}length == 0 %}
-            <p>На данный момент на сайте нет опубликованных статей или текстовых материалов</p>
-        {% endif %}
-
-    </div>
+{% block content_header %}
+     <h2>Статьи, интервью и истории</h2>
+     <p>{{ text_info|safe }}</p>
 {% endblock %}

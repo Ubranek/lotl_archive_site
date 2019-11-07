@@ -1,0 +1,53 @@
+{% extends 'lotlinfoarchive/base.html' %}
+<!--todo: translion not ready -->
+
+{% block title %} {{ event.title }} {% endblock %}
+
+    <!--todo:  впоследствии сжечь
+        {{  title }} Заголовок
+        {{ slug }} 'Идентификатор ссылки ' - Использовать в ссылках
+        {{  anons }} текст анонс
+        {{ dt }} = models.DateField(_('Дата события'))
+        {{ tour }} = models.ForeignKey(Tour, verbose_name=_('Тур'), on_delete=models.SET_NULL, null=True)
+        {{ country }} = models.CharField(_('Страна'), max_length=255)
+        {{ city   }}= models.CharField(_('Город (местность)'), max_length=255)
+        {{ club  }}= models.CharField(_('Клуб'), max_length=255, blank=True, null=True)
+        {{ is_published  }}= models.BooleanField(_('Опубликовано'), default=False)
+        {{ tags  }}= TaggableManager(verbose_name=_('Теги'),  blank=True)
+        {{ vk_album  }}= models.URLField(_('Альбом ВК'), null=True, blank=True)
+        {{ videos  }}= models.ManyToManyField(VideoLink, verbose_name=_('Видео к событию'), blank=True)
+        {{ tickets  }} = models.ManyToManyField(BuyLink, verbose_name=_('Ссылки на покупку билетов'), blank=True)
+        {{ news  }}= models.ManyToManyField('News', verbose_name=_('Новости по событию'), blank=True)
+        {{ articles  }}= models.ManyToManyField('Article', verbose_name=_('Статьи по событию'), blank=True)
+        {{ site_photos  }} = models.ManyToManyField(Photo, verbose_name=_('Фото к материалу'), blank=True, related_name="site_event_photos")
+        {{ cover }} = models.ForeignKey(Photo, verbose_name=_('Обложка'), blank=True, null=True, related_name="cover", on_delete=models.CASCADE)
+    -->
+
+{% block content_header %}<!-- пустой блок заголовка -->{% endblock %}
+
+{% block content %}
+
+    <h2> {{ event.dt|date:'Y-m-d' }} - {{ event.title }}</h2>
+    <p> {{ event.anons|safe }}</p>
+    <p> {{ event.tour }} - {{ event.country }} - {{ event.city }} - {{ event.club }} </p>
+    <p> <a href="{{ event.vk_album }}"> Альбом с фотографиями  в ВК LOTL-info </a> </p>
+
+    <p> Билеты: </p>
+    {% include 'lotlinfoarchive/ticket_list_for_integration.html' with object_list=event.tickets %}
+
+    {% include 'lotlinfoarchive/photoes_list_for_integration.html' with object_list=event.site_photos %}
+
+    <p> Видео (официальные): </p>
+    {% include 'lotlinfoarchive/video_list_for_integration.html' with object_list=event.videos.all %}
+
+    <p> Новости по теме: </p>
+    {% include 'lotlinfoarchive/textmaterial_list_for_integration.html' with object_list=event.news.all %}
+
+    <p> Статьи по теме: </p>
+    {% include 'lotlinfoarchive/textmaterial_list_for_integration.html' with object_list=event.articles.all %}
+
+    <p> Теги: </p>
+    {% include 'lotlinfoarchive/tags.html' with tags=event.tags.all %}
+
+
+{% endblock %}

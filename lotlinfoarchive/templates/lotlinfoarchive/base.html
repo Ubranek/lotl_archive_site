@@ -5,31 +5,64 @@
 
 <head>
     <title>{% block title %} Default lotl-info-archive-title (если вы видите это, значит блок title не определен в расширяющем шаблоне {% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
     <!-- Общее для страниц меню -->
-        <div class="menu">
-        {% for m in menu %}
-            {% if m.url != request.path %}
-                <a href="{{ m.url }}" class="{% if m.url == request.path %}active {% endif %} menu-item"> <!-- условие оставлено для примера условных от контента классов -->
-                    {{ m.title }}
-                </a>
-            {% else %}
-                <span class="menu-item">{{ m.title }}<span>
-            {% endif %}
-        {% endfor %}
+
+    <div class="header">
+        <div class="menu"  style="float:left; padding:10px;">
+            {% for m in menu %}
+                {% if m.url != request.path %}
+                    <a href="{{ m.url }}" class="{% if m.url == request.path %}active {% endif %} menu-item"> <!-- условие оставлено для примера условных от контента классов -->
+                        {{ m.title }}
+                    </a>
+                {% else %}
+                    <span class="menu-item">{{ m.title }}</span>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="language" style="float:right; padding:10px;">
+            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="">
+                <select name="language">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                            {{ language.name_local }} ({{ language.code }})
+                        </option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Переключить">
+            </form>
+        </div>
     </div>
+    <hr/>
+
+    <hr style="clear:both;"/>
 
     <div class="content">
-    {% block content %}
-        <p>(если вы видите это, значит блок content не определен в расширяющем шаблоне </p>
-    {% endblock %}
+         {% block content_header %}
+            <p>Место для заголовка</p>
+            {{ text_info|safe }}
+        {% endblock %}
+
+        {% block content %}
+            <p>(если вы видите это, значит блок content не определен в расширяющем шаблоне </p>
+        {% endblock %}
     </div>
 
+    <hr/>
+
     <footer>
-        <p>Общий для страниц футер</p>
+
+        {% block footer %}
+             <p>Общий для страниц футер</p>
+        {% endblock %}
     </footer>
 </body>
 

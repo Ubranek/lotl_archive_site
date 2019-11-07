@@ -1,0 +1,4 @@
+{% load thumbnail %}
+
+<p>{{ photo.img.name }} - <a target="_blank" href="{% url 'lotlarchive.single_photo' pk=photo.pk %}"> Показать полное изображение</a></p>
+<img src="{% thumbnail photo.img 300x300 crop %} "  alt="{{ photo.img.default_alt_text }}" title="{{ photo.img.default_alt_text }}">

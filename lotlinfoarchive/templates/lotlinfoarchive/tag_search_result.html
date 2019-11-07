@@ -1,0 +1,49 @@
+{% extends 'lotlinfoarchive/base.html' %}
+<!--todo: translation not ready -->
+
+
+{% block title %} Поиск по тегу: {{ tag }} {% endblock %}
+
+{% block content_header %}
+     <h2>Поиск по тегу: {{ tag }}</h2>
+{% endblock %}
+
+{% block content %}
+
+    {% if albums %}
+         <h3>Альбомы</h3>
+        {% include "lotlinfoarchive/album_list_for_integration.html" with albums=albums %}
+    {% endif %}
+
+    {% if musicians %}
+         <h3>Музыканты:</h3>
+        {% include "lotlinfoarchive/musician_list_for_integration.html" with musicians=musicians %}
+    {% endif %}
+
+    {% if text_list %}
+        <h3>Новости и статьи</h3>
+        {% include "lotlinfoarchive/textmaterial_list_for_integration.html" with object_list=text_list %}
+    {% endif %}
+
+    {% if tours %}
+         <h3>Туры</h3>
+        {% include "lotlinfoarchive/tour_list_for_integration.html" with tours=tours %}
+    {% endif %}
+
+    {% if events %}
+        <h3>Новости и статьи</h3>
+        {% include "lotlinfoarchive/events_list_for_integration.html" with events=events %}
+    {% endif %}
+
+    {% if videos %}
+        <h3>Видео</h3>
+        {% include "lotlinfoarchive/videolink_list_for_integration.html" with videos=videos %}
+    {% endif %}
+
+    {% if photoes %}
+        <h3>Фотографии</h3>
+        {% include "lotlinfoarchive/photoes_list_for_integration.html" with object_list=videos %}
+    {% endif %}
+
+
+{% endblock %}

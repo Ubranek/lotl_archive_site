@@ -5,8 +5,29 @@ from taggit_autosuggest.managers import TaggableManager
 
 # Create your models here.
 
+# todo:  свойства имен меток полей для нормального автоматического перевода и доступа и темплейтов
+#    @property
+#    def name_label(self):
+#        return self.__get_label('name')
+#
+
+class TextInfoBlock(models.Model):
+    name = models.CharField('Заголовое', help_text='Для отображения в даминке (в основном', max_length=255)
+    text = models.TextField('Текстовый блок информации', blank=True, null=True)
+    template_name = models.CharField('Название темплейта в котором испольуется ', help_text='вместе с .html', max_length=255, blank=True, null=True, default="")
+
+    class Meta:
+        verbose_name='Текстовый блок информационной страницы'
+        verbose_name_plural = 'Текстовые блоки для информационных страниц'
+
+    def __str__(self):
+        if (self.template_name is None):
+            return "Текстовый блок для "
+        else:
+            return "Текстовый блок для " + self.template_name
+
 #Модель нужна для организации инлайн-датасетов в админке
-buy_sources = (('0', 'Lord Of The Lost Online Shop'), ('1', 'iTunes'), ('2', _('Другoе')))
+buy_sources = (('0', 'Lord Of The Lost Online Shop'), ('1', 'iTunes'), ('2', _('Eventim.de')), ('3', _('Другoе')))
 class BuyLink(models.Model):
     source = models.CharField(_('Название площадки'), choices=buy_sources, default='0', max_length=1)
     url = models.URLField(_('Ссылка на покупку'), help_text='Ссылка может быть использована повторно')
@@ -18,7 +39,7 @@ class BuyLink(models.Model):
         verbose_name_plural = _('Ссылки на покупку')
 
     def __str__(self):
-        return self.source
+        return "{} {}".format(self.get_source_display(), self.url)
 
 
 class LotlTeamMember(models.Model):
@@ -37,14 +58,13 @@ video_categories = ((0,_('Другое')), (1,_('Клип')),(2, 'TV of the Lost
 class VideoLink(models.Model):
     title = models.CharField(_('Заголовок'), max_length=255)
     #slug = models.SlugField(_('Идентификатор ссылки '), unique=True, help_text='Заполняется автоматически по заголовку. В случае неуникальности добавить в конце цифру')
-    dt_published = models.DateTimeField(_(''), auto_now_add=True)
+    dt_published = models.DateTimeField(_('Дата публикации'), auto_now_add=True)
     video_url = models.URLField('URL на ютуб (желательно)')
     author = models.CharField(_('Автор'), max_length=255, null=True, blank=True)
     description = models.TextField(_('Описание'), blank=True, null=True)
     is_official = models.BooleanField(_('Официальный материал'), default=True)
     category = models.IntegerField(_('Категория видео'), choices=video_categories, default=0)
     tags = TaggableManager(verbose_name=_('Теги'), blank=True)
-
 
     class Meta:
         verbose_name = _('Видео-ссылка')
@@ -54,10 +74,19 @@ class VideoLink(models.Model):
         return self.title
 
 class Photo(models.Model):
-    img = FilerImageField(null=True, blank=True,
-                    related_name=_("Изображение"), help_text='Редактирование параметров картинки в отдельном приложении админки (Filer)', on_delete=models.SET_NULL)
+    img = FilerImageField(null=True, blank=True,   related_name=_("Изображение"),  on_delete=models.SET_NULL,
+                 help_text='Редактирование параметров картинки в отдельном приложении админки (Filer)')
     author = models.CharField(_('Автор'), max_length=255, null=True, blank=True)
     tags = TaggableManager(verbose_name=_('Ассоциированные теги'), blank=True)
+
+    def __str__(self):
+        if self.img is None:
+            text = "Empty Photo"
+        elif self.img.name in ('', None):
+            text = "%s" % (self.img.original_filename,)
+        else:
+            text = "%s" % (self.img.name,)
+        return text
 
 class Tour(models.Model):
     name = models.CharField(_('Наименование тура'), max_length=255)
@@ -75,17 +104,16 @@ class Tour(models.Model):
 class Musician(models.Model):
     name = models.CharField(_('Имя'), max_length=255)
     slug = models.SlugField(_('Идентификатор ссылки '), unique=True, help_text='Заполняется автоматически по заголовку. В случае неуникальности добавить в конце цифру')
-    real_name = models.CharField(_('Имя'), max_length=255, blank=True, null=True)
+    real_name = models.CharField(_('Реальное имя'), max_length=255, blank=True, null=True)
     role = models.CharField(_('Роль в группе (инструменты)'), max_length=255, blank=True, null=True)
     facebook = models.URLField('Facebook', max_length=255, blank=True, null=True)
-    instagram = models.URLField('Facebook', max_length=255, blank=True, null=True)
+    instagram = models.URLField('Instagram', max_length=255, blank=True, null=True)
     info = models.TextField('Инфо')
     is_active = models.BooleanField('Активный участник', default=True)
     photo = models.ManyToManyField(Photo,
                                        verbose_name=_("Фотографии"), through='MusicianPhoto')
-
     signature = FilerImageField(null=True, blank=True,
-                                       related_name=_("Автограф"), on_delete=models.SET_NULL)
+                                       verbose_name=_("Автограф"), on_delete=models.SET_NULL)
     associated_tags = TaggableManager(verbose_name=_('Ассоциированные теги'))
 
     class Meta:
@@ -108,20 +136,22 @@ class MusicianPhoto(models.Model):
         is_cover = ""
         if (self.is_cover):
             is_cover = _("Основная")
-        return self.musician + " " + is_cover
+        return self.musician.name + " " + is_cover
 
 
 album_types = ((0,_('Другое')), (1,_('Электронный')), (2, _('Акустический (c оркестром)')), (3, _('Концертная запись')), (4, _('Сингл')), (5, _('Сборник')))
 class Album(models.Model):
     name = models.CharField(_('Наименование альбома'), max_length=255)
     slug = models.SlugField(_('Идентификатор ссылки '), unique=True, help_text='Заполняется автоматически по заголовку. В случае неуникальности добавить в конце цифру')
+    oover = models.ForeignKey(Photo, verbose_name=_('Обложка'), blank=True, null=True, on_delete=models.SET_NULL)
     description = models.TextField(_('Описание'),  blank=True, null=True)
     year = models.IntegerField(_('Год выпуска'))
-    tour = models.ForeignKey(Tour, verbose_name=_('Тур в поддержку альбома'), null=True, on_delete=models.SET_NULL)
+    tour = models.ForeignKey(Tour, verbose_name=_('Тур в поддержку альбома'), null=True, on_delete=models.SET_NULL, blank=True)
     album_type = models.IntegerField(_('Тип альбома'), choices=album_types, default=0)
-    associated_tags = TaggableManager(verbose_name=_('Ассоциированные теги'))
-    buy_links = models.ManyToManyField(BuyLink, verbose_name=_('Ссылки на покупку альбома'))
-    tracks = models.ManyToManyField("Track", through="TrackInAlbum", verbose_name=(_("Треки в альбоме")))
+    associated_tags = TaggableManager(verbose_name=_('Ассоциированные теги'), blank=True)
+    buy_links = models.ManyToManyField(BuyLink, verbose_name=_('Ссылки на покупку альбома'), blank=True)
+    tracks = models.ManyToManyField("Track", through="TrackInAlbum", verbose_name=(_("Треки в альбоме")), blank=True)
+
 
     class Meta:
         verbose_name = _('Альбом')
@@ -167,7 +197,7 @@ class TrackInAlbum(models.Model):
         verbose_name_plural = _('Треки в альбоме')
 
     def __str__(self):
-        return self.album + " - " + self.track
+        return self.album.name + " - " + self.track.name
 
 class LyricTranslationLang(models.Model):
     lang_tag = models.CharField(_('Язык перевода'), max_length=255)
@@ -191,7 +221,7 @@ class LyricsTranslation(models.Model):
         verbose_name_plural = _('Треки в альбоме')
 
     def __str__(self):
-        return self.track + " (" + self.lang + ")"
+        return self.track.name + " (" + self.lang.lang_tag + ")"
 
 class Event(models.Model):
     title = models.CharField(_('Заголовок'), max_length=255)
@@ -205,11 +235,12 @@ class Event(models.Model):
     is_published = models.BooleanField(_('Опубликовано'), default=False)
     tags = TaggableManager(verbose_name=_('Теги'),  blank=True)
     vk_album = models.URLField(_('Альбом ВК'), null=True, blank=True)
-    videos = models.ManyToManyField(VideoLink, verbose_name=_('Видео к событию'))
-    tickets = models.ManyToManyField(BuyLink, verbose_name=_('Ссылки на покупку билетов'))
-    news = models.ManyToManyField('News', verbose_name=_('Новости по событию'))
-    articles = models.ManyToManyField('Article', verbose_name=_('Статьи по событию'))
-    photos = models.ManyToManyField(Photo, verbose_name=_('Фото к материалу'), through='PhotoEvent')
+    videos = models.ManyToManyField(VideoLink, verbose_name=_('Видео к событию'), blank=True)
+    tickets = models.ManyToManyField(BuyLink, verbose_name=_('Ссылки на покупку билетов'), blank=True)
+    news = models.ManyToManyField('News', verbose_name=_('Новости по событию'), blank=True)
+    articles = models.ManyToManyField('Article', verbose_name=_('Статьи по событию'), blank=True)
+    site_photos = models.ManyToManyField(Photo, verbose_name=_('Фото к материалу'), blank=True, related_name="site_event_photos")
+    cover = models.ForeignKey(Photo, verbose_name=_('Обложка'), blank=True, null=True, related_name="cover", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _('Событие')
@@ -226,11 +257,17 @@ class TextMaterial(models.Model):
     dt_created = models.DateTimeField(_('Дата создания'), auto_now_add=True)
     proof_link = models.URLField(_('Пруф'), help_text=_('Ссылка на пруф или оригинальный источник'), blank=True, null=True)
     is_published = models.BooleanField(_('Опубликовано'), default=False)
+    #возможно нам нужно отдельное поле под дату-публикации
     vk_album = models.URLField(_('Альбом ВК'), null=True, blank=True)
     translator = models.ForeignKey(LotlTeamMember, verbose_name=_('Переводчик'), null=True, on_delete=models.SET_NULL, blank=True)
     tags = TaggableManager(verbose_name=_('Теги'),  blank=True)
-    videos = models.ManyToManyField(VideoLink, verbose_name=_('Видео к материалу'), blank=True, null=True)
-    photos = models.ManyToManyField(Photo, verbose_name=_('Фото к материалу'),  through='PhotoText')
+    cover = models.ForeignKey(Photo, verbose_name=_('Обложка'), related_name='text_cover', blank=True, null=True, on_delete=models.CASCADE)
+    videos_urls = models.ManyToManyField(VideoLink, verbose_name=_('Видео к материалу'), blank=True)
+    site_photos = models.ManyToManyField(Photo, verbose_name=_('Фото к материалу'), blank=True, related_name="site_text_photoes")
+
+    def get_model_name(self):
+        return self.__class__.__name__
+
 
 class News(TextMaterial):
     news_types = ((0,_('Другой')),(1, _('Новости группы')), (2,_('Новости соо')))
@@ -256,6 +293,7 @@ class Article(TextMaterial):
     def __str__(self):
         return self.title
 
+"""
 class PhotoEvent(models.Model):
     event = models.ForeignKey(Event, verbose_name=_('Событие'), on_delete=models.CASCADE)
     photo = models.ForeignKey(Photo, verbose_name=_('Фотография с события'), on_delete=models.CASCADE)
@@ -266,10 +304,11 @@ class PhotoEvent(models.Model):
         verbose_name_plural = _('Фотографии с события')
 
     def __str__(self):
-        return self.event + ' ' + self.photo
+        return self.event.title + ' ' + self.photo.img.name
+
 
 class PhotoText(models.Model):
-    text_material = models.ForeignKey(TextMaterial, verbose_name=_('Событие'), on_delete=models.CASCADE)
+    text_material = models.ForeignKey(TextMaterial, verbose_name=_('Текстовый материал'), on_delete=models.CASCADE)
     photo = models.ForeignKey(Photo, verbose_name=_('Фотография к тексту'), on_delete=models.CASCADE)
     is_cover = models.BooleanField(_('Обложка'), default=False)
 
@@ -278,4 +317,17 @@ class PhotoText(models.Model):
         verbose_name_plural = _('Фотографии к тексту')
 
     def __str__(self):
-        return self.text_material + ' ' + self.photo
+        return self.text_material.title + ' ' + self.photo.img.name
+
+class VideoText(models.Model):
+    text_material = models.ForeignKey(TextMaterial, verbose_name=_('Текстовый материал'), on_delete=models.CASCADE)
+    video = models.ForeignKey(VideoLink, verbose_name=_('Видео к тексту'), on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _('Видео к тексту')
+        verbose_name_plural = _('Видео к тексту')
+
+    def __str__(self):
+        return self.text_material.title + ' ' + self.video.title
+
+"""

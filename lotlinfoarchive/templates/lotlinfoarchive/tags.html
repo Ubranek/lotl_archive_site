@@ -1,0 +1,3 @@
+{% for tag in tags%}
+    <a href="{% url "lotlarchive.tags_list" tag=tag.slug %}">#{{  tag }}</a>
+{% endfor %}

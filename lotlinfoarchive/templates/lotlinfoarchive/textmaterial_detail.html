@@ -1,0 +1,62 @@
+{% extends 'lotlinfoarchive/base.html' %}
+
+<!--todo: translation not ready -->
+
+{% block title %} {{ textmaterial.title }} {% endblock %}
+
+
+    <!--  поля новости - впоследствии сжечь
+        title = models.CharField(_('Заголовок'), max_length=255)
+        slug = models.SlugField(_('Идентификатор ссылки '), unique=True, help_text='Заполняется автоматически по заголовку. В случае неуникальности добавить в конце цифру')
+        text_short = models.TextField(_('Анонс'))
+        text_full = models.TextField(_('Текст'))
+        dt_created = models.DateTimeField(_('Дата создания'), auto_now_add=True)
+        proof_link = models.URLField(_('Пруф'), help_text=_('Ссылка на пруф или оригинальный источник'), blank=True, null=True)
+        is_published = models.BooleanField(_('Опубликовано'), default=False)
+        #возможно нам нужно отдельное поле под дату-публикации
+        vk_album = models.URLField(_('Альбом ВК'), null=True, blank=True)
+        translator = models.ForeignKey(LotlTeamMember, verbose_name=_('Переводчик'), null=True, on_delete=models.SET_NULL, blank=True)
+        tags = TaggableManager(verbose_name=_('Теги'),  blank=True)
+        videos = models.ManyToManyField(VideoLink, verbose_name=_('Видео к материалу'),  through='VideoText')
+        photos = models.ManyToManyField(Photo, verbose_name=_('Фото к материалу'),  through='PhotoText')
+
+        news_type = models.IntegerField(_('Тип новости'), choices=news_types, default=0)
+    -->
+
+{% block content %}
+    <div>
+        <hr/>
+            <h3>{{ object.dt_created|date:'Y-m-d' }} - {{ object.title }}</h3>
+
+            {% if object.cover %}
+                Обложка: <br/> <img src="{{ object.cover.img.url }} " style="width:300px;">
+            {% endif %}
+
+            <p> <a href="{{ object.proof_link }}">Источник</a></p>
+            {% if object.translator %}
+                <p style="font-style: italic">Переводчик: {{  object.translator }}</p>
+            {% endif %}
+            <p> {{ object.text_full|safe }}</p>
+\
+            <p> Теги:
+                {% block special_textmaterial_fields %} {% endblock %}
+                 \{% for tag in object.tags.all %}
+                    <a href="{% url "lotlarchive.tags_list" tag=tag.slug %}">{{  tag }}</a>
+                {% endfor %}
+
+            </p>
+
+            <p> Больше фотографий: {% if object.vk_album %} (а также в альбоме нашей группы в ВК: {{ object.vk_album }} {% endif %}</p>
+            {% for ph in object.site_photos_set.all %}
+                {# Перечисление всех свянанных фоток #}
+                  <img src="{{ ph.img.url }} " style="width:300px;">
+            {% endfor %}
+
+            <p>Видео:</p>
+            {% for vi in object.videos_urls.all %}
+                {# Перечисление всех свянанных видюшек #}
+                 {{ vi.video_url }}
+            {% endfor %}
+        <hr/>
+    </div>
+{% endblock %}

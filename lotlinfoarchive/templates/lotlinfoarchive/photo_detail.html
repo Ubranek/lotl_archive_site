@@ -1,0 +1,12 @@
+<!-- шаблок предполагается к прогрузке аяксом например в лайтбокс
+и соответственно не содержит ничего лишнего  -->
+
+ <img src="{{ photo.img.url }} " alt="{{ photo.img.default_alt_text }}"  title="{{ photo.img.default_alt_text }}">
+
+<p> Автор: {{ photo.img.author }}</p>
+<p> Описание: {{ photo.img.description }}</p>
+
+
+<p> Теги:
+{% include 'lotlinfoarchive/tags.html' with tags=photo.tags.all %} </p>
+

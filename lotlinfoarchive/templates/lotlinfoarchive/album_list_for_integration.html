@@ -1,0 +1,9 @@
+<!--todo: translation not ready -->
+
+{% for album in albums %}
+    {% include "lotlinfoarchive/album_in_list.html" with album=album %}
+{% empty %}
+    <p>Заполнение сайта в процессе, приносим свои извинения</p>
+{% endfor %}
+
+<!-- не думаю что пагинация нам нужна -->

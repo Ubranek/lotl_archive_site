@@ -1,0 +1,30 @@
+
+{%  for textmaterial in object_list  %}
+    {% if textmaterial.is_published %}
+        {% if 'News' in textmaterial.get_model_name %}
+            {% include 'lotlinfoarchive/news_in_list.html' with news=textmaterial %}
+        {% elif 'Article' in textmaterial.get_model_name  %}
+            {% include 'lotlinfoarchive/article_in_list.html' with article=textmaterial %}
+        {% endif %}
+    {% endif %}
+{% empty %}
+    <p>На данный момент на сайте нет опубликованных новостей</p>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Следущая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+        {% endif %}
+    </span>
+</div>

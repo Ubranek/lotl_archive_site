@@ -1,0 +1,9 @@
+{% extends 'lotlinfoarchive/textmaterial_detail.html' %}
+    <!--todo: потом сжечь
+        article_types = ((0,_('Другой')),(1, _('Статья')), (2,_('Интервью')),(3, _('Мифилогия')), (4, _('Отчет')))
+        article_type = models.IntegerField(_('Тип статьи'), choices=article_types, default=0)
+        author = models.CharField(_('Автор'), blank=True, null=True, max_length=255)
+        author_link = models.URLField(_('Ссылка на автора'), blank=True, null=True)
+    -->
+
+{% block special_textmaterial_fields %}  {% endblock %}

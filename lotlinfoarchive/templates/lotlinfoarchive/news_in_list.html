@@ -1,13 +1,5 @@
-{% load static %}
-{% load thumbnail %}
-{% load i18n %}
+{% extends 'lotlinfoarchive/textmaterial_in_list.html' %}
+<!--todo: translation not ready -->
 
-<div>
-    <h3>{{ news.dt_created|date:'Y-m-d' }} - {{ news.title }} - <a href="{% url 'lotlarchive.single_news' slug=news.slug %}">Читать дальше</a></h3>
-    <p> {{ news.text_short }}</p>
-    <p> Теги:
-        {% for tag in news.tags.all %}
-            <a href="">{{  tag }}</a>
-        {% endfor %}
-    </p>
-</div>
+{% block more_link %}<a href="{% url 'lotlarchive.single_news' slug=news.slug %}">Читать дальше</a> {% endblock %}
+<!-- {% block special_textmaterial_fields %} <a href="">{{ news.get_news_type_display }}</a> {% endblock %} -->

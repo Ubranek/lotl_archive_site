@@ -1,0 +1,22 @@
+{% load static %}
+{% load thumbnail %}
+{% load i18n %}
+
+<div>
+<hr/>
+    <h3>{{ textmaterial.dt_created|date:'Y-m-d' }} - {{ textmaterial.title }} - {% block more_link %} {% endblock %}</h3>
+
+    {# Перечисление всех свянанных фоток, и которых берем только обложку #}
+    {% if textmaterial.cover %}
+        Обложка новости: <br/> <img src="{{ textmaterial.cover.img.url }} " style="width:300px;">
+    {% endif %}
+
+    <p> {{ textmaterial.text_short|safe }}</p>
+    <p> Теги:
+        {% block special_textmaterial_fields %} {% endblock %}
+        {% for tag in textmaterial.tags.all %}
+            <a href="{% url "lotlarchive.tags_list" tag=tag.slug %}">{{  tag }}</a>
+        {% endfor %}
+    </p>
+<hr/>
+</div>

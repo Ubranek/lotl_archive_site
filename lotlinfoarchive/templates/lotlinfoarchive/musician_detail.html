@@ -1,0 +1,56 @@
+{% extends 'lotlinfoarchive/base.html' %}
+<!--todo: translion not ready -->
+
+{% block title %} Участник группы: {{ musician.name }} {% endblock %}
+
+    <!--todo:  впоследствии сжечь
+
+        поля музыканта (object или musician - должны работать оба варианта)
+        name = models.CharField(_('Имя'), max_length=255)
+        slug = models.SlugField(_('Идентификатор ссылки '), unique=True, help_text='Заполняется автоматически по заголовку. В случае неуникальности добавить в конце цифру')
+        real_name = models.CharField(_('Имя'), max_length=255, blank=True, null=True)
+        role = models.CharField(_('Роль в группе (инструменты)'), max_length=255, blank=True, null=True)
+        facebook = models.URLField('Facebook', max_length=255, blank=True, null=True)
+        instagram = models.URLField('Facebook', max_length=255, blank=True, null=True)
+        info = models.TextField('Инфо')
+        is_active = models.BooleanField('Активный участник', default=True)
+        photo = models.ManyToManyField(Photo,
+                                           verbose_name=_("Фотографии"), through='MusicianPhoto')
+
+        signature = FilerImageField(null=True, blank=True,
+                                           related_name=_("Автограф"), on_delete=models.SET_NULL)
+        associated_tags = TaggableManager(verbose_name=_('Ассоциированные теги'))
+    -->
+
+{% block content_header %}<!-- пустой блок заголовка -->{% endblock %}
+
+{% block content %}
+
+    <h2>Участник группы {{ musician.name }}</h2>
+    <p> {% firstof musician.role "role.placeholder" %} {% if not object.is_active %} <i>(Бывший участник)</i>{% endif %}</p>
+    <div class="social">
+        <a href="{{  musician.facebook }}">FB</a> <a href="{{ musician.instagram }}">ИН</a>
+    </div>
+
+    <div class="photoes">
+        {% for ph in object.musicianphoto_set.all %}
+            {% if ph.is_cover %}
+                <img src="{{ ph.photo.img.url }} " style="width:300px;">
+            {% endif %}
+        {% endfor %}
+        <img src="{{ object.signature.img.url }}" style="width:300px;">
+        {% for ph in object.musicianphoto_set.all %}
+            {% if not ph.is_cover %}
+                <img src="{{ ph.photo.img.url }} " style="width:300px;">
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <p>Реальное имя: {{ object.real_name }}</p>
+    <p>{{ object.info|safe }}</p>
+
+    {% for tag in object.associated_tags.all %}
+        <a href="{% url "lotlarchive.tags_list" tag=tag %}">{{  tag }}</a>
+    {% endfor %}
+
+{% endblock %}

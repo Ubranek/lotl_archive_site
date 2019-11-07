@@ -1,0 +1,23 @@
+{% load static %}
+{% load thumbnail %}
+{% load i18n %}
+<!--todo: translation not ready -->
+
+<div>
+<hr/>
+    <h2> <a href="{% url "lotlarchive.album" slug=album.slug %}">{{ album.name }}</a></h2>
+
+    {% if album.oover.img %}
+       <img src="{{ album.oover.img.url }}" style="width:300px;">
+    {% endif %}
+\
+    <p>{{ album.year }}</p>
+
+    <p> Теги:
+        {% for tag in album.associated_tags.all %}
+            <a href="{% url "lotlarchive.tags_list" tag=tag %}">{{  tag }}</a>
+        {% endfor %}
+    </p>
+
+<hr/>
+</div>

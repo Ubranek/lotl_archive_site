@@ -1,0 +1,6 @@
+<h2>{{ video.dt_published }} - {{ video.title }}</h2>
+<a href="{{ video.video_url }}">Ссылка на видео на ютубе</a>
+<p>{{ video.description }}</p>
+
+<p> Теги:
+{% include 'lotlinfoarchive/tags.html' with tags=photo.tags.all %} </p>
