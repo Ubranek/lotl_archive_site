@@ -1,0 +1,454 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-07 22:23+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\for_dev_tests\models.py:8 .\lotlinfoarchive\models.py:59
+#: .\lotlinfoarchive\models.py:227 .\lotlinfoarchive\models.py:253
+msgid "Заголовок"
+msgstr ""
+
+#: .\for_dev_tests\models.py:9
+msgid "Основной текст"
+msgstr ""
+
+#: .\for_dev_tests\models.py:10 .\lotlinfoarchive\models.py:61
+msgid "Дата публикации"
+msgstr ""
+
+#: .\for_dev_tests\models.py:12
+msgid "img_test"
+msgstr ""
+
+#: .\for_dev_tests\models.py:16
+msgid "Тестовая модель для перевода"
+msgstr ""
+
+#: .\for_dev_tests\models.py:17
+msgid "Тесытовые модели для перевода"
+msgstr ""
+
+#: .\lotlinfoarchive\apps.py:6
+msgid "Архив L.O.T.L. info"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:30
+msgid "Eventim.de"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:30
+msgid "Другoе"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:32
+msgid "Название площадки"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:33 .\lotlinfoarchive\models.py:38
+msgid "Ссылка на покупку"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:34
+msgid "Оф. магазин"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:35 .\lotlinfoarchive\models.py:47
+msgid "Комментарий"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:39
+msgid "Ссылки на покупку"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:46
+msgid "Ник (или имя)"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:48
+msgid "Активность"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:51 .\lotlinfoarchive\models.py:217
+msgid "Участник команды LOTL-info"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:52
+msgid "Участники команды LOTL-info"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:57 .\lotlinfoarchive\models.py:142
+msgid "Другое"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:57
+msgid "Клип"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:57 .\lotlinfoarchive\models.py:142
+msgid "Концертная запись"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:63 .\lotlinfoarchive\models.py:79
+#: .\lotlinfoarchive\models.py:286
+msgid "Автор"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:64 .\lotlinfoarchive\models.py:94
+#: .\lotlinfoarchive\models.py:147
+msgid "Описание"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:65
+msgid "Официальный материал"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:66
+msgid "Категория видео"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:67 .\lotlinfoarchive\models.py:236
+#: .\lotlinfoarchive\models.py:263
+msgid "Теги"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:70
+msgid "Видео-ссылка"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:71
+msgid "Видео-ссылки"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:77
+msgid "Изображение"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:80 .\lotlinfoarchive\models.py:95
+#: .\lotlinfoarchive\models.py:117 .\lotlinfoarchive\models.py:151
+msgid "Ассоциированные теги"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:92
+msgid "Наименование тура"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:93 .\lotlinfoarchive\models.py:106
+#: .\lotlinfoarchive\models.py:145 .\lotlinfoarchive\models.py:228
+#: .\lotlinfoarchive\models.py:254
+msgid "Идентификатор ссылки "
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:98
+msgid "Концертный тур"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:99
+msgid "Концертные туры"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:105
+msgid "Имя"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:107
+msgid "Реальное имя"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:108
+msgid "Роль в группе (инструменты)"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:114
+msgid "Фотографии"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:116
+msgid "Автограф"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:120
+msgid "Участник группы"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:121
+msgid "Участники группы"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:127
+msgid "Музыкант"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:128
+msgid "Фотография"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:129
+msgid "Основная фотка профиля"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:132
+msgid "Фотография участника группы"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:133
+msgid "Фотографии участника группы"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:138
+msgid "Основная"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:142
+msgid "Электронный"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:142
+msgid "Акустический (c оркестром)"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:142
+msgid "Сингл"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:142
+msgid "Сборник"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:144
+msgid "Наименование альбома"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:146 .\lotlinfoarchive\models.py:243
+#: .\lotlinfoarchive\models.py:264
+msgid "Обложка"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:148
+msgid "Год выпуска"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:149
+msgid "Тур в поддержку альбома"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:150
+msgid "Тип альбома"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:152
+msgid "Ссылки на покупку альбома"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:153 .\lotlinfoarchive\models.py:197
+#: .\lotlinfoarchive\models.py:221
+msgid "Треки в альбоме"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:157 .\lotlinfoarchive\models.py:192
+msgid "Альбом"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:158
+msgid "Альбомы"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:177
+msgid "Наименование песни"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:178
+msgid "Текст песни"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:179
+msgid "Длительность (сек.)"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:180
+msgid "Официальный клип"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:181
+msgid "Ссылки на покупку трека"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:184 .\lotlinfoarchive\models.py:193
+#: .\lotlinfoarchive\models.py:213
+msgid "Трек"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:185
+msgid "Треки"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:196 .\lotlinfoarchive\models.py:220
+msgid "Трек в альбоме"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:203 .\lotlinfoarchive\models.py:206
+#: .\lotlinfoarchive\models.py:214
+msgid "Язык перевода"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:207
+msgid "Языки перевода"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:215
+msgid "Текст перевода"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:216
+msgid "Автор перевода"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:229 .\lotlinfoarchive\models.py:255
+msgid "Анонс"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:230
+msgid "Дата события"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:231
+msgid "Тур"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:232
+msgid "Страна"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:233
+msgid "Город (местность)"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:234
+msgid "Клуб"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:235 .\lotlinfoarchive\models.py:259
+msgid "Опубликовано"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:237 .\lotlinfoarchive\models.py:261
+msgid "Альбом ВК"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:238
+msgid "Видео к событию"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:239
+msgid "Ссылки на покупку билетов"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:240
+msgid "Новости по событию"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:241
+msgid "Статьи по событию"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:242 .\lotlinfoarchive\models.py:266
+msgid "Фото к материалу"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:246
+msgid "Событие"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:247
+msgid "События"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:256
+msgid "Текст"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:257
+msgid "Дата создания"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:258
+msgid "Пруф"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:258
+msgid "Ссылка на пруф или оригинальный источник"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:262
+msgid "Переводчик"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:265
+msgid "Видео к материалу"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:273 .\lotlinfoarchive\models.py:284
+msgid "Другой"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:273
+msgid "Новости группы"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:273
+msgid "Новости соо"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:274
+msgid "Тип новости"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:277
+msgid "Новость"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:278
+msgid "Новости"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:284 .\lotlinfoarchive\models.py:290
+msgid "Статья"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:284
+msgid "Интервью"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:284
+msgid "Мифилогия"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:284
+msgid "Отчет"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:285
+msgid "Тип статьи"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:287
+msgid "Ссылка на автора"
+msgstr ""
+
+#: .\lotlinfoarchive\models.py:291
+msgid "Статьи"
+msgstr ""
