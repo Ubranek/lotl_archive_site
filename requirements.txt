@@ -2,13 +2,14 @@ Django==2.1.5
 pip==9.0.3
 pytz==2018.7
 setuptools==39.0.1
-django-modeltranslation=0.13b1
+django-modeltranslation==0.13b1
 Pillow==5.4.1
 Unidecode==1.0.23
 django-filer==1.4.4
 django-js-asset==1.2.2
 django-mptt==0.9.1
 django-polymorphic==2.0.3
-django-taggit=1.1.0
-django-taggit-autosuggest=0.3.7
+django-taggit==1.1.0
+django-taggit-autosuggest==0.3.7
 easy-thumbnails==2.6
+django-summernote==0.8.11.4
