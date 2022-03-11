@@ -3,7 +3,7 @@ pip==9.0.3
 pytz==2018.7
 setuptools==39.0.1
 django-modeltranslation==0.13b1
-Pillow==5.4.1
+Pillow==9.0.1
 Unidecode==1.0.23
 django-filer==1.4.4
 django-js-asset==1.2.2
